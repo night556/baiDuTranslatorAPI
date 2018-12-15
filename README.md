@@ -1,4 +1,4 @@
-#BAIDUTRANSLATORAPI
+# BAIDUTRANSLATORAPI
 
 该项目调用百度翻译的API 实现终端翻译。可选择翻译语言，源语言采用自动识别。
 
