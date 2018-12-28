@@ -13,6 +13,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -34,43 +35,65 @@ type TransResult struct {
 	Dst string `json:"dst"`
 }
 
+var languageList = []string{"zh", "en", "yue", "wyw"}
+var flag = false
+
 func main() {
-	var (
-		input string
-		from  = "auto"
-		to    string
-		query string
-	)
+
+	//循环读
 	for {
+		flag = false
 		reader := bufio.NewScanner(os.Stdin)
 		reader.Scan()
-		input = reader.Text()
+		input := reader.Text()
 		if input == "exit" {
 			return
 		}
-		inputs := strings.Split(input, "/")
-		to = "zh"
-		switch len(inputs) {
-		case 1:
-			for _, v := range inputs[0] {
-				if unicode.Is(unicode.Scripts["Han"], v) {
-					fmt.Println(v)
-					to = "en"
-				}
-				break
-			}
-		case 2:
-			to = inputs[1]
-		case 3:
-			from = inputs[2]
-			to = inputs[1]
+		query, from, to, err := checkInput(input)
+		if err != nil {
+			fmt.Println("输入有误，无法翻译！！！\n" + err.Error())
+			continue
 		}
-
-		query = inputs[0]
 		translator(query, from, to)
 	}
 }
 
+func checkInput(input string) (string, string, string, error) {
+	var (
+		from  = "auto"
+		to    string
+		query string
+	)
+	inputs := strings.Split(input, "/")
+
+	to = "zh"
+	switch len(inputs) {
+	case 1:
+		for _, v := range inputs[0] {
+			if unicode.Is(unicode.Scripts["Han"], v) {
+				to = "en"
+			}
+			break
+		}
+	case 2:
+		to = inputs[1]
+
+	case 3:
+		from = inputs[2]
+		to = inputs[1]
+	}
+	for _, dirlang := range languageList {
+		if to == dirlang {
+			break
+		}
+		err := errors.New("目标语言错误")
+		return "", "", "", err
+	}
+	query = inputs[0]
+	return query, from, to, nil
+}
+
+//调用此函数之前用户的输入已经经过判断
 func translator(words string, from string, to string) {
 	// var query string
 	var result Result
@@ -78,8 +101,8 @@ func translator(words string, from string, to string) {
 	//URL编码
 	urlquery := url.QueryEscape(words)
 
-	prikey := "百度提供的私钥"
-	appid := "百度提供的appid"
+	prikey := "MeBGpG7KPRLCyFs_GQPG"
+	appid := "20181028000226330"
 	//随机数
 	randnum := rand.New(rand.NewSource(time.Now().UnixNano())).Int63n(10000000000)
 	salt := strconv.FormatInt(randnum, 10)
@@ -90,7 +113,7 @@ func translator(words string, from string, to string) {
 	h := md5.New()
 	h.Write([]byte(str))
 	sign = hex.EncodeToString(h.Sum(nil))
-	url := "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + urlquery + "&from=" + from + "&to=" + to + "&appid=百度提供的apiid&salt=" + salt + "&sign=" + sign
+	url := "http://api.fanyi.baidu.com/api/trans/vip/translate?q=" + urlquery + "&from=" + from + "&to=" + to + "&appid=20181028000226330&salt=" + salt + "&sign=" + sign
 	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)

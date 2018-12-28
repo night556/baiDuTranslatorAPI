@@ -1,0 +1,27 @@
+mode: set
+baiDuTranslatorAPI/main.go:41.13,44.6 1 0
+baiDuTranslatorAPI/main.go:44.6,49.22 5 0
+baiDuTranslatorAPI/main.go:52.3,53.17 2 0
+baiDuTranslatorAPI/main.go:57.3,57.30 1 0
+baiDuTranslatorAPI/main.go:49.22,51.4 1 0
+baiDuTranslatorAPI/main.go:53.17,55.12 2 0
+baiDuTranslatorAPI/main.go:61.63,70.21 4 1
+baiDuTranslatorAPI/main.go:85.2,85.39 1 1
+baiDuTranslatorAPI/main.go:92.2,93.29 2 1
+baiDuTranslatorAPI/main.go:71.9,72.31 1 1
+baiDuTranslatorAPI/main.go:78.9,79.17 1 1
+baiDuTranslatorAPI/main.go:81.9,83.17 2 1
+baiDuTranslatorAPI/main.go:72.31,73.45 1 1
+baiDuTranslatorAPI/main.go:76.4,76.9 1 1
+baiDuTranslatorAPI/main.go:73.45,75.5 1 1
+baiDuTranslatorAPI/main.go:85.39,86.20 1 1
+baiDuTranslatorAPI/main.go:89.3,90.25 2 1
+baiDuTranslatorAPI/main.go:86.20,87.9 1 1
+baiDuTranslatorAPI/main.go:97.55,118.16 14 0
+baiDuTranslatorAPI/main.go:122.2,126.19 4 0
+baiDuTranslatorAPI/main.go:129.2,130.16 2 0
+baiDuTranslatorAPI/main.go:134.2,134.40 1 0
+baiDuTranslatorAPI/main.go:118.16,121.3 2 0
+baiDuTranslatorAPI/main.go:126.19,128.3 1 0
+baiDuTranslatorAPI/main.go:130.16,133.3 2 0
+baiDuTranslatorAPI/main.go:134.40,136.3 1 0
